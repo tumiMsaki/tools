@@ -17,4 +17,4 @@ function bar(name, age) {
   console.log(this.value);
 }
 
-bar.nCall(null)
+bar.nCall(foo)
