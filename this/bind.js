@@ -1,0 +1,3 @@
+Function.prototyp.nBind = function() {
+  
+}
