@@ -17,4 +17,4 @@ function bar(name, age) {
   console.log(this.value);
 }
 
-bar.nApply(foo, ['yyyyk', 12])
+bar.nApply(foo)
