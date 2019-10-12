@@ -10,6 +10,14 @@ const flatten = (arr) => {
   return result
 }
 
+const flatten2 = (arr) => {
+  let result = []
+  while(arr.some(item => Array.isArray(arr[item]))){
+    result = [].concat(...arr)
+  }
+  return result
+}
+
 
 let arr = flatten([1,2,[3,4,[5,6]]])
 console.log(arr)
