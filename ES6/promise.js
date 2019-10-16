@@ -90,8 +90,37 @@ nPromise.prototype.then = function(onFulfilled, onRejected) {
       })
     }
   })
-  
+
   return promise2
+}
+
+/**
+ * Promise.all
+ */
+nPromise.prototype.all = function(promises) {
+  return new nPromise((res, rej) => {
+    let index = 0
+    let result = []
+    if (promises.length === 0) {
+      res(result)
+    } else {
+      function processValue(i, data) {
+        result[i] = data
+        if (++index === promises.length) {
+          res(result)
+        }
+      }
+
+      for (let i = 0; i < promises.length; i++) {
+        nPromise.resolve(promises[i]).then((data) => {
+          processValue(i, data)
+        },(err) => {
+          reject(err)
+          return 
+        })
+      }
+    }
+  })
 }
 
 /**
