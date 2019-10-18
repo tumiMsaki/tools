@@ -55,6 +55,41 @@ class BinarySearchTree {
   showTree() {
     return this.root
   }
+
+  inOrderTraverse(fn) {
+    let inOrderTraverseNode = (node, callback) => {
+      if(node !== null) {
+        inOrderTraverseNode(node.left, callback)
+        callback(node.key)
+        inOrderTraverseNode(node.right, callback)
+      }
+    }
+
+    inOrderTraverseNode(this.root, fn)
+  }
+
+  preOrderTraverse(fn) {
+    let preOrderTraverseNode = (node, callback) => {
+      if (node !== null) {
+        callback(node.key)
+        preOrderTraverse(node.left, callback)
+        preOrderTraverse(node.right, callback)
+      }
+    }
+
+    preOrderTraverse(this.root, fn)
+  }
+
+  postOrderTraverse(fn) {
+    let postOrderTraverseNode = (node, callback) => {
+      if (node !== null) {
+        postOrderTraverseNode(node.left, callback)
+        postOrderTraverseNode(node.right, callback)
+        callback(node.key)
+      }
+    }
+    this.postOrderTraverseNode(this.root, fn)
+  }
 }
 
 let node = [4,1,5]
