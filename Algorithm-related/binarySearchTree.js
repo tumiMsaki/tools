@@ -14,7 +14,7 @@ class BinarySearchTree {
     } else if (Array.isArray(tree)) {
       this.BulkInsert(tree)
     } else {
-      console.log('please input a number of array')
+      console.log('please input an number or array')
     }
   }
 
@@ -72,12 +72,11 @@ class BinarySearchTree {
     let preOrderTraverseNode = (node, callback) => {
       if (node !== null) {
         callback(node.key)
-        preOrderTraverse(node.left, callback)
-        preOrderTraverse(node.right, callback)
+        preOrderTraverseNode(node.left, callback)
+        preOrderTraverseNode(node.right, callback)
       }
     }
-
-    preOrderTraverse(this.root, fn)
+    preOrderTraverseNode(this.root, fn)
   }
 
   postOrderTraverse(fn) {
@@ -90,10 +89,51 @@ class BinarySearchTree {
     }
     this.postOrderTraverseNode(this.root, fn)
   }
+
+  min() {
+    let node = this.root
+    if (node) {
+      while (node && node.left !== null) {
+        node = node.left
+      }
+      return node.key
+    }
+  }
+
+  max() {
+    let node = this.root
+    if (node) {
+      while (node && node.right !== null) {
+        node = node.right
+      }
+      return node.key
+    }
+  }
+
+  search(key) {
+    let searchNode = (node, key) => {
+      if (node === null) {
+        return false
+      }
+      if (key < node.key) {
+        return searchNode(node.left, key)
+      } else if (key > node.key) {
+        return searchNode(node.right, key)
+      } else {
+        return true
+      }
+    }
+    return searchNode(this.root, key)
+  }
 }
 
-let node = [4,1,5]
+let node = [8,3,6,4,9,11,2,5,7]
 let tree = new BinarySearchTree(node)
-tree.insert(2)
 
-console.log(tree.showTree())
+arr = []
+
+tree.preOrderTraverse(key => {
+  arr.push(key)  
+})
+
+console.log(arr)
