@@ -126,14 +126,3 @@ class BinarySearchTree {
     return searchNode(this.root, key)
   }
 }
-
-let node = [8,3,6,4,9,11,2,5,7]
-let tree = new BinarySearchTree(node)
-
-arr = []
-
-tree.preOrderTraverse(key => {
-  arr.push(key)  
-})
-
-console.log(arr)
