@@ -18,6 +18,3 @@ const flatten2 = (arr) => {
   return result
 }
 
-
-let arr = flatten([1,2,[3,4,[5,6]]])
-console.log(arr)
