@@ -50,38 +50,88 @@ result.value.then(data => {
  * 
  * @param {*} gen 
  */
-function run(gen) {
-  var g = gen()
+// function run(gen) {
+//   var g = gen()
 
-  function next(data) {
-    var result = g.next(data)
+//   function next(data) {
+//     var result = g.next(data)
 
-    if (result.done) return 
+//     if (result.done) return 
 
-    result.value.then(data => {
-      return data.json()
-    }).then(data => {
-      next(data)
-    })
-  }
+//     result.value.then(data => {
+//       return data.json()
+//     }).then(data => {
+//       next(data)
+//     })
+//   }
 
-  next()
-}
+//   next()
+// }
 
 /**
  * 
  * @param {*} gen 
  */
-function run2(gen) {
-  var g = gen2()
+// function run2(gen) {
+//   var g = gen2()
 
-  function next(data) {
-    var result = g.next(data)
+//   function next(data) {
+//     var result = g.next(data)
 
-    if (result.done) return 
+//     if (result.done) return 
 
-    result.value(next)
+//     result.value(next)
+//   }
+
+//   next()
+// }
+
+
+function run(gen) {
+  var g = gen()
+
+  return new Promise((res, rej) => {
+    function next(data) {
+      try {
+        var result = g.next(data)
+      } catch(err) {
+        rej(err)
+      }
+
+      if (result.done) {
+        return res(result.value)
+      }
+
+      var value = toPromise(result.value)
+
+      value.then(data => {
+        next(data)
+      }, err => rej(err))  
+    }
+
+    next()
+  })
+}
+
+function isPromise(obj) {
+  return 'function' === typeof obj.then
+}
+
+function toPromise(obj) {
+  if (isPromise(obj)) return obj
+
+  if('function' === typeof obj) {
+    return thunkToPromise(obj)
   }
 
-  next()
+  return obj
+}
+
+function thunkToPromise(fn) {
+  return new Promise((res, rej) => {
+    fn((err, result) => {
+      if (err) return rej(err)
+      res(result)
+    })
+  })
 }
