@@ -20,9 +20,5 @@ function foo(target) {
  }
 
 
- /**
-  * 对于类的装饰 相当于
-  */
-
   
 
