@@ -1,4 +1,5 @@
 function insert(list = []) {
+  console.time()
   for (let i = 1, len = list.length; i < len; i++) {
     let j = i - 1
     let current = list[i]
@@ -11,8 +12,9 @@ function insert(list = []) {
     }
     list[j + 1] = current
   }
+  console.timeEnd()
   return list
 }
 
 
-console.log(insert([2,3,5,1,7,8,4]))
+console.log(insert([2,3,5,1,7,8,4,5]))
