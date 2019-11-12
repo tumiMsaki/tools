@@ -1,7 +1,7 @@
-const selectSrot = (arr) => {
+const selectSrot = arr => {
   let index
-  for(let i = 0, len = arr.length; i < len; i++) {
-    for( let j = i + 1; j < len; j++) {
+  for (let i = 0, len = arr.length; i < len; i++) {
+    for (let j = i + 1; j < len; j++) {
       index = i
       if (arr[index] > arr[j]) {
         index = j
@@ -17,4 +17,4 @@ const selectSrot = (arr) => {
   return arr
 }
 
-console.log(selectSrot([4,2,6,1]))
+console.log(selectSrot([4, 2, 6, 1]))

@@ -16,6 +16,6 @@ function K(name, age) {
   console.log(this.value)
 }
 
-var k = K.nBind(foo, 'yk')
+var k = K.nBind(foo, "yk")
 
 var kk = new k(12)

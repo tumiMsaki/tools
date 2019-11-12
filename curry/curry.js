@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @param {*} fn  需要curry化的函数
  * @param {*} len 原函数需要参数数量
  */
@@ -8,7 +8,7 @@ function curry(fn, len = fn.length) {
 }
 
 /**
- * 
+ *
  * @param {*} fn 需要curry化的函数
  * @param {*} len 原函数需要的参数数量
  * @param  {...any} args 接收到的参数
@@ -24,8 +24,8 @@ function _curry(fn, len, ...args) {
   }
 }
 
-const _fn = curry((a,b,c,d) => {
-  console.log(a,b,c,d)
+const _fn = curry((a, b, c, d) => {
+  console.log(a, b, c, d)
 })
 
-_fn(1,2)(3)(5)
+_fn(1, 2)(3)(5)

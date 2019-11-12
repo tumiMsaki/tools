@@ -1,7 +1,7 @@
 class HashRouter {
   constructor() {
     this.router = {}
-    window.addEventListener('hashchange', this.load.bind(this), false)
+    window.addEventListener("hashchange", this.load.bind(this), false)
   }
 
   register(hash, cb) {
@@ -9,15 +9,15 @@ class HashRouter {
   }
 
   registerIndex(cb) {
-    this.router['index'] = cb
+    this.router["index"] = cb
   }
 
   registerNot(cb) {
-    this.router['404'] = cb
+    this.router["404"] = cb
   }
 
   registerError(cb) {
-    this.router['error'] = cb
+    this.router["error"] = cb
   }
 
   load() {
@@ -25,31 +25,32 @@ class HashRouter {
     let handler
     if (!hash) {
       handler = this.router.index
-    } else if (!this.router.hasOwnProperty(hash)){
-      handler = this.router['404']
+    } else if (!this.router.hasOwnProperty(hash)) {
+      handler = this.router["404"]
     } else {
       handler = this.router[hash]
     }
     try {
       handler.call(this)
     } catch (err) {
-      this.router['error'].call(this)
+      this.router["error"].call(this)
     }
   }
 }
 
-
 let router = new HashRouter()
-let container = document.querySelector('.container')
+let container = document.querySelector(".container")
 
-router.registerIndex(() => container.innerHTML = 'home')
+router.registerIndex(() => (container.innerHTML = "home"))
 
-router.register('/page1', () => container.innerHTML = 'page1')
-router.register('/page2', () => container.innerHTML = 'page2')
-router.register('/page3', () => container.innerHTML = 'page3')
-router.register('/page4', () => { throw new Error('233333')})
+router.register("/page1", () => (container.innerHTML = "page1"))
+router.register("/page2", () => (container.innerHTML = "page2"))
+router.register("/page3", () => (container.innerHTML = "page3"))
+router.register("/page4", () => {
+  throw new Error("233333")
+})
 
 router.load()
 
-router.registerNot(() => container.innerHTML = '404')
-router.registerError(() => container.innerHTML = '23333')
+router.registerNot(() => (container.innerHTML = "404"))
+router.registerError(() => (container.innerHTML = "23333"))

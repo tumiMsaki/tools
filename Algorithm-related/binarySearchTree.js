@@ -9,12 +9,12 @@ class BinarySearchTree {
       return _obj
     }
 
-    if (typeof tree === 'number') {
+    if (typeof tree === "number") {
       this.insert(tree)
     } else if (Array.isArray(tree)) {
       this.BulkInsert(tree)
     } else {
-      console.log('please input an number or array')
+      console.log("please input an number or array")
     }
   }
 
@@ -58,7 +58,7 @@ class BinarySearchTree {
 
   inOrderTraverse(fn) {
     let inOrderTraverseNode = (node, callback) => {
-      if(node !== null) {
+      if (node !== null) {
         inOrderTraverseNode(node.left, callback)
         callback(node.key)
         inOrderTraverseNode(node.right, callback)

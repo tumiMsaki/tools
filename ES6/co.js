@@ -1,7 +1,7 @@
 function co(fn) {
   return new Promise((res, rej) => {
     function next(data) {
-      let { value, done } = fn.next(data) 
+      let { value, done } = fn.next(data)
       if (!done) {
         value.then(data => next(data), rej)
       } else {

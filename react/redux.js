@@ -3,11 +3,11 @@ const createStore = (reducer, initialState) => {
   store.state = initialState
   store.listener = []
 
-  store.subscribe = (listener) => {
+  store.subscribe = listener => {
     store.listener.push(listener)
   }
 
-  store.dispatch = (action) => {
+  store.dispatch = action => {
     store.state = reducer(store.state, action)
     store.listener.forEach(listener => listener())
   }

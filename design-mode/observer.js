@@ -1,7 +1,5 @@
 Object.prototype.observer = {
-  subscribers: {
-    
-  },
+  subscribers: {},
 
   subscribe: function(type, fn) {
     if (!this.subscribers[type]) {
@@ -25,20 +23,17 @@ Object.prototype.observer = {
 
 const Tom = {
   read: function(news) {
-    console.log('read',news)
+    console.log("read", news)
   },
   speak: function(news) {
-    console.log('speak:',news)
+    console.log("speak:", news)
   }
 }
 
-
 const Jack = new Object()
 
-Jack.observer.subscribe('new1', Tom.read)
-Jack.observer.subscribe('new2', Tom.speak)
+Jack.observer.subscribe("new1", Tom.read)
+Jack.observer.subscribe("new2", Tom.speak)
 
-
-Jack.observer.publish('new2', 'cqupt')
+Jack.observer.publish("new2", "cqupt")
 console.log(Jack.observer.subscribers)
-

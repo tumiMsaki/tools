@@ -4,27 +4,27 @@
  */
 
 function nPromise(executor) {
-  this.state = 'pending'
+  this.state = "pending"
   this.value = undefined
   this.reason = undefined
   this.onFulfilledFnnc = []
   this.onRejectedFunc = []
-  resolve = (value) => {
-    if (this.state === 'pending') {
-      this.state = 'fulfilled'
+  resolve = value => {
+    if (this.state === "pending") {
+      this.state = "fulfilled"
       this.value = value
       this.onFulfilledFnnc.forEach(fn => fn(value))
     }
   }
 
-  reject = (reason) => {
-    if (this.state === 'pending') {
-      this.state = 'rejected'
+  reject = reason => {
+    if (this.state === "pending") {
+      this.state = "rejected"
       this.reason = reason
       this.onRejectedFunc.forEach(fn => fn(value))
     }
   }
-  
+
   try {
     executor(resolve, reject)
   } catch (err) {
@@ -41,10 +41,16 @@ function nPromise(executor) {
 
 nPromise.prototype.then = function(onFulfilled, onRejected) {
   let promise2 = new nPromise((res, rej) => {
-    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value
-    onRejected = typeof onRejected === 'function' ? onRejected : err => { throw err }
+    onFulfilled =
+      typeof onFulfilled === "function" ? onFulfilled : value => value
+    onRejected =
+      typeof onRejected === "function"
+        ? onRejected
+        : err => {
+            throw err
+          }
 
-    if (this.state === 'pending') {
+    if (this.state === "pending") {
       this.onFulfilledFnnc.push(() => {
         setTimeout(() => {
           try {
@@ -68,7 +74,7 @@ nPromise.prototype.then = function(onFulfilled, onRejected) {
       })
     }
 
-    if (this.state === 'fulfilled') {
+    if (this.state === "fulfilled") {
       setTimeout(() => {
         try {
           let x = onFulfilled(this.value)
@@ -79,7 +85,7 @@ nPromise.prototype.then = function(onFulfilled, onRejected) {
       })
     }
 
-    if (this.state === 'rejected') {
+    if (this.state === "rejected") {
       setTimeout(() => {
         try {
           let x = onRejected(this.reason)
@@ -112,12 +118,15 @@ nPromise.prototype.all = function(promises) {
       }
 
       for (let i = 0; i < promises.length; i++) {
-        nPromise.resolve(promises[i]).then((data) => {
-          processValue(i, data)
-        },(err) => {
-          reject(err)
-          return 
-        })
+        nPromise.resolve(promises[i]).then(
+          data => {
+            processValue(i, data)
+          },
+          err => {
+            reject(err)
+            return
+          }
+        )
       }
     }
   })
@@ -133,22 +142,26 @@ nPromise.prototype.all = function(promises) {
 
 function resolvePromise(promise2, x, resolve, reject) {
   if (promise2 === x) {
-    reject(new TypeError('promise reference itself'))
+    reject(new TypeError("promise reference itself"))
   }
   let called
-  if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
+  if (x !== null && (typeof x === "object" || typeof x === "function")) {
     try {
       let then = x.then
-      if (typeof then === 'function') {
-        then.call(x, (y) => {
-          if (called) return
-          called = true
-          resolvePromise(promise2, y, resolve, reject)
-        }, (r) => {
-          if (called) return
-          called = true
-          reject(r)
-        })
+      if (typeof then === "function") {
+        then.call(
+          x,
+          y => {
+            if (called) return
+            called = true
+            resolvePromise(promise2, y, resolve, reject)
+          },
+          r => {
+            if (called) return
+            called = true
+            reject(r)
+          }
+        )
       } else {
         resolve(x)
       }
@@ -162,9 +175,8 @@ function resolvePromise(promise2, x, resolve, reject) {
   }
 }
 
-
 const foo = new nPromise((res, rej) => {
-  res('data')
+  res("data")
 })
 
 // foo.then(res => {
@@ -173,10 +185,8 @@ const foo = new nPromise((res, rej) => {
 
 // console.log(foo)
 
-
 const bar = new Promise((res, rej) => {
-  res(console.log('do it'))
+  res(console.log("do it"))
 })
-
 
 // console.log(bar)

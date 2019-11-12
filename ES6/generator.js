@@ -1,21 +1,20 @@
-const url = 'https://api.github.com/users/github'
+const url = "https://api.github.com/users/github"
 
 function* gen() {
   let r1 = yield fetch(url)
   let r2 = yield fetch(url)
   let r3 = yield fetch(url)
-  console.log(r1,r2,r3)
+  console.log(r1, r2, r3)
 }
 
-
 /**
- * 
+ *
  */
 function fetchData() {
   return function(cb) {
     setTimeout(() => {
       cb(url)
-    }, 1000);
+    }, 1000)
   }
 }
 
@@ -26,29 +25,31 @@ function* gen2() {
   console.log(r1, r2, r3)
 }
 
-
 /**
- * 
+ *
  */
 
 var g = gen()
 
 var result = g.next()
 
-result.value.then(data => {
-  return data.json()
-}).then(data => {
-  return g.next().value
-}).then(data => {
-  return data.json()
-}).then(data => {
-  return g.next().value
-})
-
+result.value
+  .then(data => {
+    return data.json()
+  })
+  .then(data => {
+    return g.next().value
+  })
+  .then(data => {
+    return data.json()
+  })
+  .then(data => {
+    return g.next().value
+  })
 
 /**
- * 
- * @param {*} gen 
+ *
+ * @param {*} gen
  */
 // function run(gen) {
 //   var g = gen()
@@ -56,7 +57,7 @@ result.value.then(data => {
 //   function next(data) {
 //     var result = g.next(data)
 
-//     if (result.done) return 
+//     if (result.done) return
 
 //     result.value.then(data => {
 //       return data.json()
@@ -69,8 +70,8 @@ result.value.then(data => {
 // }
 
 /**
- * 
- * @param {*} gen 
+ *
+ * @param {*} gen
  */
 // function run2(gen) {
 //   var g = gen2()
@@ -78,14 +79,13 @@ result.value.then(data => {
 //   function next(data) {
 //     var result = g.next(data)
 
-//     if (result.done) return 
+//     if (result.done) return
 
 //     result.value(next)
 //   }
 
 //   next()
 // }
-
 
 function run(gen) {
   var g = gen()
@@ -94,7 +94,7 @@ function run(gen) {
     function next(data) {
       try {
         var result = g.next(data)
-      } catch(err) {
+      } catch (err) {
         rej(err)
       }
 
@@ -104,9 +104,12 @@ function run(gen) {
 
       var value = toPromise(result.value)
 
-      value.then(data => {
-        next(data)
-      }, err => rej(err))  
+      value.then(
+        data => {
+          next(data)
+        },
+        err => rej(err)
+      )
     }
 
     next()
@@ -114,13 +117,13 @@ function run(gen) {
 }
 
 function isPromise(obj) {
-  return 'function' === typeof obj.then
+  return "function" === typeof obj.then
 }
 
 function toPromise(obj) {
   if (isPromise(obj)) return obj
 
-  if('function' === typeof obj) {
+  if ("function" === typeof obj) {
     return thunkToPromise(obj)
   }
 

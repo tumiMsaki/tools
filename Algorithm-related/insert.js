@@ -8,7 +8,7 @@ function insert(list = []) {
       // list[j + 1] = list[j]
       // list[j] = temp
       list[j + 1] = list[j]
-      j -- 
+      j--
     }
     list[j + 1] = current
   }
@@ -16,5 +16,4 @@ function insert(list = []) {
   return list
 }
 
-
-console.log(insert([2,3,5,1,7,8,4,5]))
+console.log(insert([2, 3, 5, 1, 7, 8, 4, 5]))

@@ -15,8 +15,7 @@ K.prototype.say = function() {
   return `my name is ${this.name}, and I'm ${this.age} years old`
 }
 
-
-const k = nNew(K, 'masaki', 20)
+const k = nNew(K, "masaki", 20)
 console.log(k.name)
 console.log(k.age)
 console.log(k.say())
