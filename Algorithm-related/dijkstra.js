@@ -44,6 +44,6 @@ while (node !== null) {
     }
   }
   processed.push(node);
+  console.log(parents);
   node = find_lowest_cost_node(costs);
 }
-console.log(costs);
