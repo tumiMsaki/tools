@@ -5,3 +5,12 @@ function pipe(...fn) {
     }, x)
   }
 }
+
+
+function pipe(...fn) {
+  return function(x) {
+    return fn.reduceRight(function(arg, fn) {
+      return fn(arg)
+    }, x)
+  }
+}
