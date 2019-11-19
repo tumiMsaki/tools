@@ -4,15 +4,11 @@ function insert(list = []) {
     let j = i - 1
     let current = list[i]
     while (j >= 0 && list[j] > current) {
-      // let temp = list[j + 1]
-      // list[j + 1] = list[j]
-      // list[j] = temp
       list[j + 1] = list[j]
       j--
     }
     list[j + 1] = current
   }
-  console.timeEnd()
   return list
 }
 
