@@ -1,8 +1,13 @@
-Function.prototype.nCall = function(fn, ...args) {
-  let context = fn || (typeof window === "undefined" ? global : window)
+Function.prototype.nCall = (context) => {
   context.fn = this
+  let args = []
+  for (let i = 1, len = arguments.length; i < len; i ++) {
+    args.push(arguments[i])
+  }
   context.fn(...args)
+  let result = context(...args)
   delete context.fn
+  return result
 }
 
 let foo = {
