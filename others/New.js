@@ -1,9 +1,12 @@
-const nNew = function(fn, ...args) {
-  let obj = {}
-  obj.__proto__ = fn.prototype
-  // Object.setPrototypeOf(obj, fn.prototype)
-  let result = fn.apply(obj, args)
-  return result instanceof Object ? result : obj
+function nNew() {
+  const obj = new Object();
+  const Constructor = [].shift.call(arguments);
+
+  obj.__proto__ = Constructor.prototype;
+
+  const ret = Constructor.apply(obj, arguments);
+
+  return typeof ret === "object" ? ret : obj;
 }
 
 function K(name, age) {
