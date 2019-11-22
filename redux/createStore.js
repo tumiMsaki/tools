@@ -5,6 +5,10 @@ const createStore = (reducer, initialState) => {
 
   store.subscribe = listener => {
     store.listener.push(listener)
+    return unsubscribe = () => {
+      const index = store.listeners.indexOf(listener)
+      listeners.splice(index, 1)
+    }
   }
 
   store.dispatch = action => {
