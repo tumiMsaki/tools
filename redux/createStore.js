@@ -1,4 +1,4 @@
-const createStore = (reducer, initialState) => {
+function createStore(reducer, initialState) {
   const store = {}
   store.state = initialState
   store.listener = []
