@@ -1,6 +1,5 @@
 function compose(middleware) {
   return function(context, next) {
-    // last called middleware #
     let index = -1
     return dispatch(0)
     function dispatch(i) {
